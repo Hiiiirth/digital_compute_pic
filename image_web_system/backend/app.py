@@ -32,6 +32,10 @@ app = Flask(__name__,
             template_folder='../frontend',
             static_folder='../frontend/static')
 
+# 生产环境安全配置
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+
 # 配置跨域
 CORS(app)
 
@@ -40,6 +44,7 @@ UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'temp')
 SAVED_FOLDER = os.path.join(UPLOAD_FOLDER, 'saved')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SAVED_FOLDER'] = SAVED_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 限制上传文件大小 16MB
 
 # 确保目录存在
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -424,14 +429,17 @@ def health_check():
 
 
 if __name__ == '__main__':
-    # 从环境变量获取端口，默认为5000
-    port = int(os.environ.get('PORT', 5000))
-    debug_mode = os.environ.get('FLASK_ENV') != 'production'
-
     print("=" * 50)
     print("数字图像处理Web系统 - Flask服务器")
     print("=" * 50)
-    print(f"服务器地址: http://localhost:{port}")
+    
+    # 从环境变量读取配置，支持本地开发和生产部署
+    host = os.environ.get('HOST', '0.0.0.0')
+    port = int(os.environ.get('PORT', 5000))
+    debug = app.config['DEBUG']
+    
+    print(f"服务器地址: http://{host}:{port}")
+    print(f"调试模式: {'开启' if debug else '关闭'}")
     print(f"临时文件路径: {UPLOAD_FOLDER}")
     print(f"保存文件路径: {SAVED_FOLDER}")
     print(f"支持的功能: 噪声、滤波、边缘检测、形态学、阈值分割")
@@ -439,4 +447,4 @@ if __name__ == '__main__':
     print(f"自动清理: 每小时清理临时文件，每24小时清理保存文件")
     print("=" * 50)
 
-    app.run(debug=debug_mode, host='0.0.0.0', port=port)
+    app.run(debug=debug, host=host, port=port)
