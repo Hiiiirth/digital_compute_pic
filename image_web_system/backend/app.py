@@ -424,10 +424,14 @@ def health_check():
 
 
 if __name__ == '__main__':
+    # 从环境变量获取端口，默认为5000
+    port = int(os.environ.get('PORT', 5000))
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+
     print("=" * 50)
     print("数字图像处理Web系统 - Flask服务器")
     print("=" * 50)
-    print(f"服务器地址: http://localhost:5000")
+    print(f"服务器地址: http://localhost:{port}")
     print(f"临时文件路径: {UPLOAD_FOLDER}")
     print(f"保存文件路径: {SAVED_FOLDER}")
     print(f"支持的功能: 噪声、滤波、边缘检测、形态学、阈值分割")
@@ -435,4 +439,4 @@ if __name__ == '__main__':
     print(f"自动清理: 每小时清理临时文件，每24小时清理保存文件")
     print("=" * 50)
 
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)

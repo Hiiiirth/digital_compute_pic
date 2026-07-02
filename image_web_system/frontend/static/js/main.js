@@ -15,8 +15,10 @@ let imageWindowCount = 0;  // 图像窗口计数器（支持多图上传）
 let activeImageWindowId = null;  // 当前激活的图像窗口ID（用于直方图识别）
 let histogramWindowCount = 0;  // 直方图窗口计数器
 
-// API基础URL
-const API_BASE_URL = 'http://localhost:5000/api';
+// API基础URL - 支持生产环境部署
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api'
+    : '/api';
 
 // ==================== 初始化 ====================
 document.addEventListener('DOMContentLoaded', function() {

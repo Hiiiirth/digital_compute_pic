@@ -3,6 +3,7 @@
 # Web框架
 Flask>=2.3.0
 Flask-CORS>=4.0.0
+gunicorn>=21.0.0
 
 # 图像处理库
 opencv-python>=4.8.0
