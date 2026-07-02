@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigPic 数字图像处理系统</title>
+    <!-- 使用Flask静态资源路径 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- 欢迎页面 -->
+    <div id="welcomePage" class="welcome-page">
+        <!-- 标题区域（左上部分） -->
+        <div class="welcome-title-area">
+            <h1 class="welcome-brand">D<span class="italic-i">i</span>gP<span class="italic-i">i</span>c</h1>
+        </div>
+
+        <!-- 左下角文字 -->
+        <div class="welcome-bottom-left">
+            <p class="meet-text">Meet With ————</p>
+            <p class="efficiently-text">
+                Efficiently<br>
+                Obtained
+            </p>
+        </div>
+
+        <!-- 功能介绍区域（右下部分） -->
+        <div class="welcome-features-area">
+            <ul class="welcome-features-list">
+                <h2 class="features-title">Say <span class="italic-i">Hello</span> to The Function</h2>
+                <li class="features-item">Noise Addition</li>
+                <li class="features-item">Image Filtering</li>
+                <li class="features-item">Edge Detection</li>
+                <li class="features-item">Morphological Operations</li>
+                <li class="features-item">Thresholding</li>
+                <li class="features-item">Histogram Analysis</li>
+            </ul>
+        </div>
+
+        <!-- 欢迎内容 -->
+        <div class="welcome-content">
+            <div class="welcome-hero">
+                <img src="{{ url_for('static', filename='images/图1.png') }}" alt="数字图像处理" class="welcome-image">
+                <button class="btn-start" onclick="showMainSystem()">点此<span class="underline-text">体验</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主系统页面 -->
+    <div id="mainSystem" class="main-system" style="display: none;">
+        <!-- 顶部固定导航栏（液态玻璃胶囊样式） -->
+        <header class="navbar">
+            <div class="navbar-brand">
+                <h1 class="welcome-brand">D<span class="italic-i">i</span>gP<span class="italic-i">i</span>c</h1>
+            </div>
+            <div class="navbar-menu">
+                <!-- 返回首页按钮 -->
+                <button class="glass-button btn-back" onclick="showWelcome()">返回首页</button>
+                <!-- 上传图片按钮 -->
+                <button id="loadBtn" class="glass-button">上传图片</button>
+                <!-- 控制面板按钮 -->
+                <button id="controlPanelBtn" class="glass-button" onclick="showControlPanel()">控制面板</button>
+                <!-- 保存结果按钮 -->
+                <button id="saveBtn" class="glass-button" disabled>保存结果</button>
+                <!-- 重置按钮 -->
+                <button id="resetBtn" class="glass-button">重置</button>
+                <!-- 导出直方图按钮 -->
+                <button id="exportBtn" class="glass-button" disabled>导出直方图</button>
+                <!-- 隐藏的文件输入 -->
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+        </header>
+
+        <!-- Workflow 画布容器 -->
+        <div class="workflow-canvas" id="workflowCanvas">
+            <!-- 初始空白状态提示 -->
+            <div class="canvas-placeholder" id="canvasPlaceholder">
+                <p class="placeholder-text">点击顶部上传图片开始图像处理工作流</p>
+            </div>
+        </div>
+    </div><!-- 结束 main-system -->
+
+    <!-- JavaScript - 使用Flask静态资源路径 -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // 页面切换功能
+        function showMainSystem() {
+            document.getElementById('welcomePage').style.display = 'none';
+            document.getElementById('mainSystem').style.display = 'block';
+        }
+
+        function showWelcome() {
+            document.getElementById('mainSystem').style.display = 'none';
+            document.getElementById('welcomePage').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,986 @@
+/* ============================================
+   DigPic 数字图像处理系统 - 液态玻璃 UI 样式
+   基于 Glassmorphism 设计规范
+   ============================================ */
+
+/* ==================== 全局CSS变量定义 ==================== */
+:root {
+    /* 液态玻璃核心参数 - 可调节 */
+    --glass-blur: 12px;
+    --glass-bg-opacity: 0.22;
+    --glass-border-opacity: 0.45;
+    --glass-border-radius: 20px;
+    
+    /* 导航栏专用参数 */
+    --nav-blur: 12px;
+    --nav-bg-opacity: 0.22;
+    --nav-border-radius: 9999px;
+    
+    /* 卡片面板参数 */
+    --card-blur: 10px;
+    --card-bg-opacity: 0.18;
+    --card-border-radius: 20px;
+    
+    /* 液态渐变背景色 */
+    --bg-color-1: #fad7e0; /* 浅豆沙粉 */
+    --bg-color-2: #d4e3ff; /* 浅冰蓝 */
+    --bg-color-3: #f9e4d8; /* 暖杏色 */
+    
+    /* 文字颜色 */
+    --text-primary: #444444;
+    --text-secondary: #666666;
+    --text-light: #888888;
+    
+    /* 高光和阴影 */
+    --highlight-white: rgba(255, 255, 255, 0.6);
+    --shadow-light: rgba(145, 160, 210, 0.1);
+    --shadow-medium: rgba(140, 160, 200, 0.08);
+    
+    /* 按钮激活态 */
+    --button-active-bg: rgba(255, 255, 255, 0.65);
+    
+    /* 网格纹理 */
+    --grid-color: rgba(200, 210, 230, 0.15);
+    --grid-size: 40px;
+}
+
+/* ==================== 全局基础样式 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+}
+
+body {
+    /* 全白背景 */
+    background: #ffffff;
+    color: var(--text-primary);
+    position: relative;
+}
+
+/* ==================== 液态玻璃通用样式类 ==================== */
+
+/* 玻璃卡片基础样式 */
+.glass-card {
+    background: rgba(255, 255, 255, var(--card-bg-opacity));
+    backdrop-filter: blur(var(--card-blur));
+    -webkit-backdrop-filter: blur(var(--card-blur)); /* Safari兼容 */
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity));
+    border-radius: var(--card-border-radius);
+    padding: 20px;
+    box-shadow: 
+        inset 2px 2px 4px rgba(255, 255, 255, 0.6),           /* 内凹高光 */
+        inset -2px -2px 4px rgba(170, 185, 220, 0.15),        /* 内凹弱阴影 */
+        0 6px 32px var(--shadow-light);                       /* 外层悬浮投影 */
+    transform: translateZ(0); /* 修复浏览器模糊失效 */
+}
+
+/* 玻璃按钮基础样式 */
+.glass-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #000000; /* 黑色线条边框 */
+    border-radius: 999px;
+    padding: 10px 20px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* 取消阴影和磨砂效果 */
+}
+
+.glass-button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.glass-button:active {
+    background: rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+}
+
+.glass-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==================== 欢迎页面样式 ==================== */
+.welcome-page {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 欢迎页面背景网格纹理 */
+.welcome-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.welcome-title-area {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    z-index: 10;
+}
+
+.welcome-brand {
+    font-size: 3rem;
+    font-weight: normal;
+    color: var(--text-primary);
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.italic-i {
+    font-family: 'Rage Italic', 'Times New Roman', serif;
+    font-style: italic;
+}
+
+.welcome-bottom-left {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    z-index: 10;
+}
+
+.meet-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin: 0;
+    opacity: 0.8;
+}
+
+.efficiently-text {
+    font-size: 4rem;
+    font-family: 'Poppins Thin', 'Poppins', sans-serif;
+    font-weight: 100;
+    color: var(--text-primary);
+    margin: 0;
+    margin-top: 20px;
+    line-height: 1.2;
+}
+
+.welcome-features-area {
+    position: absolute;
+    bottom: 80px;
+    right: 60px;
+    z-index: 10;
+}
+
+.welcome-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    line-height: 1.8;
+}
+
+.features-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.features-item {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    opacity: 0.85;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-hero {
+    text-align: center;
+    max-width: 800px;
+    margin-left: -50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 垂直居中按钮 */
+}
+
+.welcome-image {
+    max-width: 100%;
+    max-height: 650px;
+    display: block;
+    margin: 0 auto 30px auto;
+    margin-right: 100px;
+}
+
+.btn-start {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+    background: transparent;
+    border: 1px solid #000000; /* 黑色线条边框 */
+    border-radius: 50px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block; /* 确保按钮居中 */
+    /* 取消阴影和磨砂效果 */
+}
+
+.underline-text {
+    text-decoration: underline;
+}
+
+.btn-start:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== 主系统页面样式 ==================== */
+.main-system {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==================== 顶部导航栏（液态玻璃胶囊样式）==================== */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1400px;
+    height: 70px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+    
+    /* 黑色线条边框 + 无阴影 */
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000000;
+    border-radius: var(--nav-border-radius);
+    transform: translateX(-50%);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .welcome-brand {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-menu .glass-button {
+    padding: 8px 18px;
+    font-size: 13px;
+}
+
+/* 隐藏文件输入 */
+.navbar-menu input[type="file"] {
+    display: none;
+}
+
+/* ==================== Workflow 画布容器 ==================== */
+.workflow-canvas {
+    position: absolute;
+    top: 110px; /* 导航栏下方 */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 110px);
+    overflow: hidden;
+    z-index: 1;
+    
+    /* 全白背景 + 网格纹理 */
+    background: #ffffff;
+}
+
+/* 网格纹理叠加层 - 浅灰色网格 */
+.workflow-canvas::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(220, 220, 220, 0.3) 39px,
+            rgba(220, 220, 220, 0.3) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(220, 220, 220, 0.3) 39px,
+            rgba(220, 220, 220, 0.3) 40px
+        );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==================== 初始空白状态提示 ==================== */
+.canvas-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.placeholder-text {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    user-select: none;
+}
+
+/* ==================== 滚动条样式 ==================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(170, 185, 220, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(170, 185, 220, 0.5);
+}
+
+/* ==================== 动画效果 ==================== */
+@keyframes slideIn {
+    from { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+    to { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+}
+
+@keyframes slideOut {
+    from { 
+        transform: translateX(0); 
+        opacity: 1; 
+    }
+    to { 
+        transform: translateX(100%); 
+        opacity: 0; 
+    }
+}
+
+@keyframes spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
+
+@keyframes fadeOut {
+    from { 
+        opacity: 1; 
+    }
+    to { 
+        opacity: 0; 
+    }
+}
+
+/* ==================== Toast 提示样式 ==================== */
+#toastContainer {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.toast {
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #000000; /* 黑色线条边框 */
+    background: rgba(255, 255, 255, 0.95); /* 白色半透明背景 */
+    color: #333333; /* 深灰色文字 */
+    animation: slideIn 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: none; /* 移除阴影 */
+    backdrop-filter: none; /* 移除磨砂效果 */
+    -webkit-backdrop-filter: none;
+}
+
+.toast-success {
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333333;
+}
+
+.toast-error {
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333333;
+}
+
+.toast-warning {
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333333;
+}
+
+.toast-info {
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333333;
+}
+
+/* ==================== 加载遮罩样式 ==================== */
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+#loadingOverlay > div {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 20px 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 
+        inset 1px 1px 3px rgba(255, 255, 255, 0.6),
+        0 4px 20px rgba(145, 160, 210, 0.2);
+}
+
+.spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 10px auto 0;
+}
+
+/* ==================== 禁用状态 ==================== */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+/* ==================== 通用悬浮窗口样式 ==================== */
+
+/* 悬浮窗口基础样式 */
+.float-window {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000000; /* 黑色线条边框 */
+    border-radius: 12px;
+    min-width: 300px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    /* 阴影和磨砂效果已移除，保留简洁风格 */
+}
+
+/* 窗口标题栏（可拖拽区域） */
+.float-window-header {
+    height: 40px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.98);
+    border-bottom: 1px solid #000000;
+    cursor: move; /* 指示可拖拽 */
+    user-select: none; /* 禁止文字选中 */
+    border-radius: 12px 12px 0 0;
+}
+
+/* 窗口名称 */
+.float-window-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* 窗口控制按钮组 */
+.float-window-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 最小化按钮 */
+.float-window-minimize {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.float-window-minimize:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 关闭按钮 */
+.float-window-close {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.float-window-close:hover {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+}
+
+/* 窗口内容主体区 */
+.float-window-body {
+    flex: 1;
+    padding: 15px;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 0 0 12px 12px;
+}
+
+/* ==================== 最小化侧边标签样式 ==================== */
+
+/* 最小化标签容器（固定在左侧或右侧） */
+.minimized-tags-container {
+    position: fixed;
+    left: 20px;
+    bottom: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 50;
+}
+
+/* 单个最小化标签 */
+.minimized-tag {
+    width: 120px;
+    height: 40px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.minimized-tag:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: translateX(3px);
+}
+
+/* 最小化标签标题 */
+.minimized-tag-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 最小化标签恢复图标 */
+.minimized-tag-icon {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ==================== 窗口层级管理 ==================== */
+
+/* 图像窗口层级（最低） */
+.float-window.image-window {
+    z-index: 100;
+}
+
+/* 直方图弹窗层级（中等） */
+.float-window.histogram-window {
+    z-index: 200;
+}
+
+/* 控制面板层级（最高） */
+.float-window.control-panel-window {
+    z-index: 300;
+}
+
+/* 窗口拖拽时的临时置顶状态 */
+.float-window.dragging {
+    z-index: 9999 !important;
+    opacity: 0.9;
+}
+
+/* 窗口激活状态（最近点击的窗口） */
+.float-window.active {
+    border-width: 2px;
+}
+
+/* ==================== 窗口类型特殊样式 ==================== */
+
+/* 图像窗口 - 显示画布 */
+.image-window .float-window-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.image-window canvas {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}
+
+/* 控制面板窗口 - 滚动区域 */
+.control-panel-window .float-window-body {
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+/* 直方图窗口 - 图表容器 */
+.histogram-window .float-window-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden; /* 防止内容溢出 */
+}
+
+/* ==================== 窗口大小调整功能 ==================== */
+
+/* 添加 resize handle 到窗口右下角 */
+.float-window::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+    cursor: nwse-resize; /* 指示可调整大小 */
+    background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.2) 50%);
+    border-radius: 0 0 12px 0;
+}
+
+/* 窗口调整大小时的样式 */
+.float-window.resizing {
+    opacity: 0.9;
+    transition: none; /* 调整时移除过渡效果 */
+}
+
+/* ==================== 窗口标题自命名功能 ==================== */
+
+/* 窗口标题悬浮提示 */
+.float-window-title {
+    cursor: pointer; /* 指示可交互 */
+    transition: background-color 0.3s ease;
+}
+
+/* 悬浮1.5秒后显示提示 */
+.float-window-title.show-edit-hint {
+    background-color: rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+/* 编辑提示tooltip */
+.edit-hint-tooltip {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #333;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.edit-hint-tooltip.show {
+    opacity: 1;
+}
+
+/* 编辑界面容器 */
+.title-edit-interface {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 5px;
+    display: none;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.title-edit-interface.show {
+    display: block;
+}
+
+/* 编辑输入框 */
+.title-edit-input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: white;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.title-edit-input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+/* 编辑按钮组 */
+.title-edit-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.title-edit-btn {
+    flex: 1;
+    padding: 6px 12px;
+    font-size: 13px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.title-edit-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.title-edit-btn.save {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+.title-edit-btn.save:hover {
+    background: rgba(0, 0, 0, 0.12);
+}
+
+/* ==================== 控制面板模块样式 ==================== */
+
+/* 控制模块容器 */
+.control-module {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* 模块标题 */
+.control-module h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* 标签样式 */
+.control-module label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+/* 下拉选择框 */
+.control-module select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 13px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    background: white;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-module select:focus {
+    outline: none;
+    border-color: #333;
+}
+
+/* 下拉选项样式（灰色风格） */
+.control-module select option {
+    background: white;
+    color: #333;
+}
+
+/* 选中选项样式（灰色背景） */
+.control-module select option:checked,
+.control-module select option:hover,
+.control-module select option:focus {
+    background: rgba(128, 128, 128, 0.3) !important;
+    color: #000;
+}
+
+/* 滑块样式 */
+.control-module input[type="range"] {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.control-module input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-module input[type="range"]::-webkit-slider-thumb:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 应用按钮 */
+.apply-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* 结果窗口样式 */
+.result-window .float-window-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.result-window canvas {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+}

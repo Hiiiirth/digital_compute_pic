@@ -1,0 +1,15 @@
+# 数字图像处理Web系统依赖清单
+
+# Web框架
+Flask>=2.3.0
+Flask-CORS>=4.0.0
+
+# 图像处理库
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# 数值计算
+numpy>=1.24.0
+
+# 数据可视化
+matplotlib>=3.7.0
